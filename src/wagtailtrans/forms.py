@@ -28,7 +28,7 @@ class TranslationForm(forms.ModelForm):
         site = self.instance.get_site()
         qs = TranslatablePage.objects.filter(language=self.language).exclude(id=self.instance.id)
 
-        allowed_pages = [p.pk for p in qs.specific() if self.instance.can_move_to(p) and p.get_site() == site]
+        allowed_pages = [p.pk for p in qs.specific() if self.instance.can_create_at(p) and p.get_site() == site]
 
         qs = qs.filter(pk__in=allowed_pages)
         if not qs:
