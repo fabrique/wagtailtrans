@@ -214,20 +214,23 @@ class TranslatablePage(Page):
 
             page.move(target=target, pos=pos, suppress_sync=True)
 
-    def get_translations(self, only_live=True, include_self=False):
+    def get_translations(self, only_live=True, include_self=False, inclusive=False):
         """Get all translations of this page.
 
         This page itself is not included in the result, all pages
         are sorted by the language position.
 
         :param only_live: Boolean to filter on live pages & languages.
+        :param include_self: Boolean to include self in the result (wagtailtrans)
+        :param inclusive: Boolean to include self in the result (wagtail core)
         :return: TranslatablePage instance
 
         """
         canonical_page_id = self.canonical_page_id or self.pk
         translations = TranslatablePage.objects.filter(Q(canonical_page=canonical_page_id) | Q(pk=canonical_page_id))
 
-        if not include_self:
+        # As both wagtailtrans as wagtail core only uses one of the include self params we can get away with this simple if-statement to use both usages
+        if not include_self and not inclusive:
             translations = translations.exclude(pk=self.pk)
 
         if only_live:
