@@ -1,6 +1,6 @@
 default_app_config = 'wagtailtrans.apps.WagtailTransConfig'
 
-VERSION = (2, 2, 1, 'final')
+VERSION = (2, 2, 1, 'wagtail2.11-5', '-')
 
 
 def get_version():
@@ -10,6 +10,8 @@ def get_version():
     if VERSION[2]:
         version = '%s.%s' % (version, VERSION[2])
 
-    if VERSION[3] != 'final':
+    if VERSION[3] != 'final' and len(VERSION) == 5 and VERSION[4]:
+        version = '%s%s%s' % (version, VERSION[4], VERSION[3])
+    elif VERSION[3] != 'final':
         version = '%s.%s' % (version, VERSION[3])
     return version
