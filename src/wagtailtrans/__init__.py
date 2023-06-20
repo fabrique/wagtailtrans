@@ -1,6 +1,6 @@
 default_app_config = 'wagtailtrans.apps.WagtailTransConfig'
 
-VERSION = (2, 2, 1, 'wagtail2.11-6', '+')
+VERSION = (2, 2, 1, 'wagtail2.15', '+')
 
 
 def get_version():
